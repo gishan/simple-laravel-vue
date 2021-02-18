@@ -7,6 +7,25 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import Home from './vue/pages/Home.vue'
+import Employee from './vue/pages/Employee.vue'
+import System from './vue/pages/System.vue'
+import User from './vue/pages/User.vue'
+
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +38,7 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('app', require('./vue/App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +46,19 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const routes = [
+    { path: '/home', component: Home },
+    { path: '/employee', component: Employee },
+    { path: '/system', component: System },
+    { path: '/user', component: User }
+]
+
+const router = new VueRouter({
+    routes, // short for `routes: routes`
+    mode: 'history'
+})
+
 const app = new Vue({
     el: '#app',
+    router,
 });

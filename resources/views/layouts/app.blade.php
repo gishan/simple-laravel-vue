@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Simple Application') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -75,8 +75,14 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
+        <main style="height: calc(100vh - 56px);" >
+            @guest
+                @if (Route::has('login') or Route::has('register'))
+                    @yield('content')
+                @endif
+            @else
+                <app></app>
+            @endguest
         </main>
     </div>
 </body>
